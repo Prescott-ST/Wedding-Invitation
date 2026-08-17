@@ -16,7 +16,7 @@
 | `index.html` | 请柬正式版，**全部内容、样式、交互都在这一个文件里** |
 | `风格样图.html` | 设计期的四款风格样图存档（在线：<https://prescott-st.github.io/Wedding-Invitation/风格样图.html>） |
 | `嘉宾回执统计.xlsx` | 宾客回执汇总表（姓名 / 出席人数 / 提交时间 / 合计） |
-| `scripts/export_rsvp.py` | 从 QQ 邮箱拉取回执邮件 → 重新生成上面的 Excel |
+| `scripts/export_rsvp.py` | 从 QQ 邮箱拉取回执邮件 → 重新生成上面的 Excel；同一宾客多次提交**仅保留最新一笔**（按姓名判定） |
 | `.nojekyll` | 跳过 Jekyll，Pages 构建必需 |
 | `.github/workflows/rsvp-export.yml` | 每日定时任务：北京时间 08:05 自动汇总 Excel 并提交；也可在仓库 Actions 页手动 Run |
 
@@ -32,6 +32,7 @@
    - 日期胶囊强制单行，杜绝少数文字孤行
 5. **部署**：GitHub Pages；首次构建失败（Jekyll 问题）→ 加 `.nojekyll` 解决。
 6. **回执数据链路**：页面表单 → FormSubmit AJAX（邮件标题「婚礼回执 · 姓名 · N位」）→ QQ 邮箱；再由脚本/定时任务汇总为 Excel 回传仓库。
+7. **回执统计增强**：FormSubmit 激活后全链路联调通过；定时任务上线（每日北京 08:05 自动汇总 Excel 并提交，也可在 Actions 页手动触发）；同一宾客重复提交时按姓名去重、仅保留最新一笔（重名宾客如需精确区分，可在表单增加手机号字段）。
 
 ## 三、新设备快速启动
 
