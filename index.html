@@ -255,8 +255,37 @@
   .photo.big{grid-column:1/-1;aspect-ratio:16/9}
   .photo::before{content:'❦';font-size:20px;color:var(--gold)}
 
-  /* ---------- 回执 ---------- */
-  .rsvp-note{font-size:12px;color:#b3a685;letter-spacing:1px;margin-top:16px}
+  /* ---------- 回执表单 ---------- */
+  #rsvp-form{max-width:300px;margin:0 auto;text-align:left}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:13px;color:var(--green);letter-spacing:3px;margin-bottom:8px}
+  .field input{
+    width:100%;padding:11px 14px;border:1px solid var(--gold);border-radius:8px;
+    background:#fbf7ec;color:var(--text);font-family:inherit;font-size:15px;letter-spacing:1px;
+  }
+  .field input:focus{outline:none;border-color:var(--green)}
+  .stepper{display:flex;align-items:center;gap:20px}
+  .stepper.off{opacity:.35;pointer-events:none}
+  .stepper button{
+    width:38px;height:38px;border-radius:50%;border:1px solid var(--gold);
+    background:#fbf7ec;color:var(--green);font-size:18px;cursor:pointer;line-height:1;
+  }
+  .count-show{display:flex;align-items:baseline;gap:4px;min-width:64px;justify-content:center}
+  .count-show b{font-size:24px;font-weight:900;color:var(--green);font-variant-numeric:tabular-nums;line-height:1}
+  .count-unit{font-size:12px;color:var(--gold-soft);letter-spacing:2px}
+  .seg{display:flex;gap:10px}
+  .seg-btn{
+    flex:1;padding:10px 0;border-radius:999px;border:1px solid var(--gold);
+    background:transparent;color:var(--green);font-family:inherit;font-size:14px;
+    letter-spacing:2px;cursor:pointer;
+  }
+  .seg-on{background:var(--green);border-color:var(--green);color:#e6cf9a}
+  .btn-submit{width:100%;justify-content:center;font-size:15px;letter-spacing:4px;padding:12px 0;margin-top:4px}
+  .rsvp-done{text-align:center;padding:16px 0 4px}
+  .rsvp-done .orn{color:var(--gold);font-size:22px}
+  .done-title{font-size:20px;color:var(--green);letter-spacing:4px;margin:12px 0 8px;font-weight:600}
+  .done-sub{font-size:14px;color:var(--text);letter-spacing:2px;margin:4px 0}
+  .rsvp-note{font-size:12px;color:#b3a685;letter-spacing:1px;margin-top:14px;text-align:center}
 
   /* ---------- 页脚 ---------- */
   footer{
@@ -431,15 +460,34 @@
       <h2 class="sec-title">静候佳音</h2>
       <p class="sec-sub">R. S. V. P</p>
     </div>
-    <div class="btn-row reveal">
-      <button class="btn btn-green" id="rsvp-yes">欣然出席</button>
-      <button class="btn btn-line" id="rsvp-no">遗憾婉拒</button>
-    </div>
+    <div class="ornament reveal"><i></i></div>
+    <form id="rsvp-form" class="reveal" autocomplete="off">
+      <div class="field">
+        <label for="guest-name">您的姓名</label>
+        <input id="guest-name" name="name" type="text" maxlength="20" placeholder="请输入姓名" required>
+      </div>
+      <div class="field">
+        <label>出席人数</label>
+        <div class="stepper" id="stepper">
+          <button type="button" id="count-minus" aria-label="减少人数">−</button>
+          <span class="count-show"><b id="count-val">2</b><span class="count-unit">位</span></span>
+          <button type="button" id="count-plus" aria-label="增加人数">＋</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>能否出席</label>
+        <div class="seg">
+          <button type="button" class="seg-btn seg-on" id="rsvp-yes">欣然出席</button>
+          <button type="button" class="seg-btn" id="rsvp-no">遗憾婉拒</button>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-green btn-submit">提交回执</button>
+      <p class="rsvp-note">回执仅新人可见 · 出席统计会在婚礼前整理</p>
+    </form>
     <div class="btn-row reveal">
       <a class="btn btn-line" href="tel:13800000000">☎ 新郎 138-0000-0000</a>
       <a class="btn btn-line" href="tel:13900000000">☎ 新娘 139-0000-0000</a>
     </div>
-    <p class="rsvp-note reveal">回执仅为演示效果 · 可改为微信回复或接入表单收集</p>
   </section>
 
   <footer>
@@ -546,9 +594,62 @@
   tick();
   setInterval(tick, 1000);
 
-  /* ---------- 回执按钮（演示） ---------- */
-  $('#rsvp-yes').addEventListener('click', function(){ toast('收到啦！我们恭候您的光临 ♥'); });
-  $('#rsvp-no').addEventListener('click', function(){ toast('已收到您的回复，期待下次与您相聚'); });
+  /* ---------- 回执收集 ★ 二选一配置即可 ----------
+     endpoint:    表单接收接口（如 Formspree 的 https://formspree.io/f/xxxxxx），客人在页内直接提交
+     externalUrl: 外部问卷链接（腾讯问卷/金数据等），点提交后跳转过去填写               */
+  var RSVP = { endpoint: '', externalUrl: '' };
+
+  var count = 2;
+  var attending = true;
+  var countVal = $('#count-val');
+  var stepper = $('#stepper');
+  function setCount(n){ count = Math.min(12, Math.max(1, n)); countVal.textContent = count; }
+  $('#count-minus').addEventListener('click', function(){ setCount(count - 1); });
+  $('#count-plus').addEventListener('click', function(){ setCount(count + 1); });
+
+  $('#rsvp-yes').addEventListener('click', function(){
+    attending = true;
+    this.classList.add('seg-on'); $('#rsvp-no').classList.remove('seg-on');
+    stepper.classList.remove('off');
+    if (count < 1) setCount(1);
+  });
+  $('#rsvp-no').addEventListener('click', function(){
+    attending = false;
+    this.classList.add('seg-on'); $('#rsvp-yes').classList.remove('seg-on');
+    stepper.classList.add('off');
+  });
+
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  $('#rsvp-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = $('#guest-name').value.trim();
+    if (!name) { toast('请先填写您的姓名'); $('#guest-name').focus(); return; }
+    if (!RSVP.endpoint && RSVP.externalUrl) { window.location.href = RSVP.externalUrl; return; }
+    if (!RSVP.endpoint) { toast('回执通道配置中，请稍后再试或电话联系新人'); return; }
+    var btn = this.querySelector('.btn-submit');
+    btn.disabled = true; btn.textContent = '提交中…';
+    fetch(RSVP.endpoint, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 姓名: name, 出席人数: attending ? count : 0, 是否出席: attending ? '出席' : '婉拒' })
+    }).then(function(r){ return r.ok ? r.json() : Promise.reject(r); })
+      .then(function(){
+        $('#rsvp-form').innerHTML =
+          '<div class="rsvp-done"><span class="orn">❦</span>' +
+          '<p class="done-title">回执已收到</p>' +
+          '<p class="done-sub">' + esc(name) + (attending ? ' · ' + count + ' 位出席' : ' · 婉拒') + '</p>' +
+          '<p class="done-sub">期待与您相聚</p></div>';
+      })
+      .catch(function(){
+        btn.disabled = false; btn.textContent = '重新提交';
+        toast('提交失败，请稍后再试或电话联系新人');
+      });
+  });
 })();
 </script>
 </body>
