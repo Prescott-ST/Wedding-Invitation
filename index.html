@@ -265,7 +265,6 @@
   }
   .field input:focus{outline:none;border-color:var(--green)}
   .stepper{display:flex;align-items:center;gap:20px}
-  .stepper.off{opacity:.35;pointer-events:none}
   .stepper button{
     width:38px;height:38px;border-radius:50%;border:1px solid var(--gold);
     background:#fbf7ec;color:var(--green);font-size:18px;cursor:pointer;line-height:1;
@@ -273,13 +272,6 @@
   .count-show{display:flex;align-items:baseline;gap:4px;min-width:64px;justify-content:center}
   .count-show b{font-size:24px;font-weight:900;color:var(--green);font-variant-numeric:tabular-nums;line-height:1}
   .count-unit{font-size:12px;color:var(--gold-soft);letter-spacing:2px}
-  .seg{display:flex;gap:10px}
-  .seg-btn{
-    flex:1;padding:10px 0;border-radius:999px;border:1px solid var(--gold);
-    background:transparent;color:var(--green);font-family:inherit;font-size:14px;
-    letter-spacing:2px;cursor:pointer;
-  }
-  .seg-on{background:var(--green);border-color:var(--green);color:#e6cf9a}
   .btn-submit{width:100%;justify-content:center;font-size:15px;letter-spacing:4px;padding:12px 0;margin-top:4px}
   .rsvp-done{text-align:center;padding:16px 0 4px}
   .rsvp-done .orn{color:var(--gold);font-size:22px}
@@ -473,13 +465,6 @@
           <button type="button" id="count-plus" aria-label="增加人数">＋</button>
         </div>
       </div>
-      <div class="field">
-        <label>能否出席</label>
-        <div class="seg">
-          <button type="button" class="seg-btn seg-on" id="rsvp-yes">欣然出席</button>
-          <button type="button" class="seg-btn" id="rsvp-no">遗憾婉拒</button>
-        </div>
-      </div>
       <button type="submit" class="btn btn-green btn-submit">提交回执</button>
       <p class="rsvp-note">回执仅新人可见 · 出席统计会在婚礼前整理</p>
     </form>
@@ -595,24 +580,10 @@
   var RSVP = { endpoint: 'https://formsubmit.co/ajax/491042472@qq.com', externalUrl: '' };
 
   var count = 2;
-  var attending = true;
   var countVal = $('#count-val');
-  var stepper = $('#stepper');
   function setCount(n){ count = Math.min(12, Math.max(1, n)); countVal.textContent = count; }
   $('#count-minus').addEventListener('click', function(){ setCount(count - 1); });
   $('#count-plus').addEventListener('click', function(){ setCount(count + 1); });
-
-  $('#rsvp-yes').addEventListener('click', function(){
-    attending = true;
-    this.classList.add('seg-on'); $('#rsvp-no').classList.remove('seg-on');
-    stepper.classList.remove('off');
-    if (count < 1) setCount(1);
-  });
-  $('#rsvp-no').addEventListener('click', function(){
-    attending = false;
-    this.classList.add('seg-on'); $('#rsvp-yes').classList.remove('seg-on');
-    stepper.classList.add('off');
-  });
 
   function esc(s){
     return String(s).replace(/[&<>"']/g, function(c){
@@ -631,7 +602,7 @@
     fetch(RSVP.endpoint, {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ _subject: '婚礼回执 · ' + name, 姓名: name, 出席人数: attending ? count : 0, 是否出席: attending ? '出席' : '婉拒' })
+      body: JSON.stringify({ _subject: '婚礼回执 · ' + name + ' · ' + count + '位', 姓名: name, 出席人数: count })
     }).then(function(r){
       return r.json().then(function(j){
         if (r.ok && (j.success === 'true' || j.success === true)) return j;
@@ -642,7 +613,7 @@
         $('#rsvp-form').innerHTML =
           '<div class="rsvp-done"><span class="orn">❦</span>' +
           '<p class="done-title">回执已收到</p>' +
-          '<p class="done-sub">' + esc(name) + (attending ? ' · ' + count + ' 位出席' : ' · 婉拒') + '</p>' +
+          '<p class="done-sub">' + esc(name) + ' · ' + count + ' 位出席</p>' +
           '<p class="done-sub">期待与您相聚</p></div>';
       })
       .catch(function(){
