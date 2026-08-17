@@ -18,7 +18,7 @@
 | `嘉宾回执统计.xlsx` | 宾客回执汇总表（姓名 / 出席人数 / 提交时间 / 合计） |
 | `scripts/export_rsvp.py` | 从 QQ 邮箱拉取回执邮件 → 重新生成上面的 Excel |
 | `.nojekyll` | 跳过 Jekyll，Pages 构建必需 |
-| `.github/workflows/rsvp-export.yml` | 每日定时任务（**待创建**，见待办清单） |
+| `.github/workflows/rsvp-export.yml` | 每日定时任务：北京时间 08:05 自动汇总 Excel 并提交；也可在仓库 Actions 页手动 Run |
 
 ## 二、创作过程回顾
 
@@ -55,11 +55,12 @@
 
 ## 五、待办清单
 
-- [ ] **FormSubmit 激活**：QQ 邮箱（含垃圾箱/订阅箱）找 FormSubmit 激活邮件 → 点 Activate → 在请柬页提交一笔测试 → 跑一次导出脚本验证 Excel 出数据
-- [ ] **创建定时任务**：内容见下方附录（网页创建：<https://github.com/Prescott-ST/Wedding-Invitation/new/main?filename=.github/workflows/rsvp-export.yml>，粘贴后 Commit）。创建后每天北京 08:05 自动更新 Excel，也可在 Actions 页手动 Run
+- [x] ~~FormSubmit 激活~~（2026-08-17 完成并联调验证：提交→邮箱→Excel→仓库全链路通过）
+- [x] ~~创建定时任务~~（2026-08-17 完成并首次运行成功，rsvp-bot 已自动提交）
 - [ ] 照片 3 张（合照 ×1 + 单人 ×2，替换 `index.html` 中 `class="photo"` 占位块）
 - [ ] 背景音乐（可选，`<audio id="bgm">` 加 `src`）
 - [ ] 确认签到时间 18:30 是否准确
+- [ ]（可选）真实回执进来后，让助手过滤掉 Excel 中的「联调测试」行
 
 ## 六、踩坑记录（新设备续作必读）
 
