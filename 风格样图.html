@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>婚礼请柬 · 风格样图</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600;900&family=Noto+Sans+SC:wght@200;400;500&family=ZCOOL+XiaoWei&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#26221f;font-family:'Noto Serif SC','Songti SC',serif;-webkit-font-smoothing:antialiased}
+  .wrap{width:390px;margin:0 auto;padding-bottom:48px}
+  header{height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px}
+  header h1{color:#efe4cd;font-size:20px;font-weight:600;letter-spacing:6px}
+  header p{color:#9c8f79;font-size:12px;letter-spacing:3px}
+  .block{margin-top:28px}
+  .label{height:44px;display:flex;align-items:center;gap:10px;color:#e8ddc8;font-size:14px;letter-spacing:2px}
+  .label b{flex:none;width:22px;height:22px;border-radius:50%;border:1px solid #b8963f;color:#b8963f;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:400}
+  .label span{color:#9c8f79;font-size:12px}
+  .mock{width:390px;height:680px;position:relative;overflow:hidden;border-radius:18px;box-shadow:0 16px 44px rgba(0,0,0,.45)}
+
+  /* ============ 01 新中式雅致 ============ */
+  .cn{background:#f7f2e7;color:#6b5847}
+  .cn::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(181,52,42,.04) 1px,transparent 1.4px);background-size:22px 22px}
+  .cn::after{content:'';position:absolute;inset:10px;border:1px solid rgba(184,150,63,.55);border-radius:10px}
+  .cn .inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;padding-top:64px}
+  .cn .cloud{margin-bottom:22px;line-height:0}
+  .cn .seal{width:78px;height:78px;background:#b5342a;color:#f7f2e7;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Ma Shan Zheng',cursive;font-size:46px;box-shadow:0 6px 18px rgba(181,52,42,.3)}
+  .cn .names{display:flex;align-items:center;gap:24px;margin-top:30px}
+  .cn .vname{writing-mode:vertical-rl;font-family:'Ma Shan Zheng',cursive;font-size:44px;color:#b5342a;letter-spacing:.25em;line-height:1}
+  .cn .sep{color:#b8963f;font-size:14px}
+  .cn .date{margin-top:26px;font-size:14px;letter-spacing:4px;color:#8a7a66}
+  .cn .tip{margin-top:14px;font-size:12px;letter-spacing:5px;color:#a8946f}
+  .cn .chips{position:absolute;left:0;right:0;bottom:132px;display:flex;gap:10px;justify-content:center}
+  .cn .chip{width:64px;padding:10px 0 8px;background:#fffdf8;border:1px solid rgba(184,150,63,.45);border-radius:9px;text-align:center}
+  .cn .chip b{display:block;font-size:20px;color:#b5342a;font-weight:900;font-variant-numeric:tabular-nums}
+  .cn .chip span{font-size:11px;color:#a8946f;letter-spacing:2px}
+  .cn .mount{position:absolute;left:0;right:0;bottom:0;line-height:0}
+
+  /* ============ 02 水彩花卉浪漫 ============ */
+  .fl{background:#fffdfa;color:#8a737c;font-family:'ZCOOL XiaoWei',serif}
+  .fl .blob{position:absolute;border-radius:50%;filter:blur(16px)}
+  .fl .b1{width:190px;height:190px;left:-50px;top:-40px;background:radial-gradient(circle,#f6c6d2 0%,rgba(246,198,210,0) 70%)}
+  .fl .b2{width:170px;height:170px;right:-40px;top:30px;background:radial-gradient(circle,#d8e6cb 0%,rgba(216,230,203,0) 70%)}
+  .fl .b3{width:220px;height:220px;left:-60px;bottom:-60px;background:radial-gradient(circle,#f9d9e0 0%,rgba(249,217,224,0) 70%)}
+  .fl .b4{width:160px;height:160px;right:-30px;bottom:40px;background:radial-gradient(circle,#e6efd9 0%,rgba(230,239,217,0) 70%)}
+  .fl .flower{position:absolute;line-height:0}
+  .fl .f1{left:22px;top:58px}
+  .fl .f2{right:20px;top:104px;transform:rotate(30deg) scale(.8)}
+  .fl .f3{left:38px;bottom:200px;transform:rotate(-20deg) scale(.7)}
+  .fl .f4{right:34px;bottom:170px;transform:rotate(15deg) scale(.9)}
+  .fl .petal{position:absolute;background:linear-gradient(135deg,#f4b8c6,#e890a4);border-radius:65% 35% 60% 40%/50% 60% 40% 50%}
+  .fl .p1{width:16px;height:16px;left:74px;top:310px;transform:rotate(40deg);opacity:.8}
+  .fl .p2{width:12px;height:12px;right:88px;top:252px;transform:rotate(-30deg);opacity:.7}
+  .fl .inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;padding-top:96px}
+  .fl .eyebrow{letter-spacing:6px;font-size:12px;color:#cf9aa8}
+  .fl h3{font-size:36px;color:#d97b94;letter-spacing:8px;font-weight:400;margin:18px 0 10px}
+  .fl .names{font-size:26px;color:#c76b85;letter-spacing:4px}
+  .fl .names em{font-style:normal;font-size:18px;padding:0 8px}
+  .fl .en{font-family:'Playfair Display',serif;font-style:italic;color:#c9ab8f;font-size:14px;margin-top:9px;letter-spacing:2px}
+  .fl .pill{margin-top:26px;background:#f7d6de;color:#b4586e;border-radius:999px;padding:9px 26px;font-size:14px;letter-spacing:3px}
+  .fl .card{position:absolute;left:50%;transform:translateX(-50%);bottom:60px;width:300px;background:#fff;border-radius:18px;box-shadow:0 14px 34px rgba(211,123,148,.22);padding:18px;text-align:center}
+  .fl .card h4{font-size:15px;color:#c76b85;letter-spacing:3px;margin-bottom:8px;font-weight:400}
+  .fl .card p{font-size:13px;color:#9b8a90;margin-bottom:14px;letter-spacing:1px}
+  .fl .card .btn{display:inline-block;background:#9db99a;color:#fff;border-radius:999px;padding:9px 30px;font-size:13px;letter-spacing:3px}
+
+  /* ============ 03 简约现代 ============ */
+  .mn{background:#fff;color:#1d1d1f;font-family:'Noto Sans SC',sans-serif}
+  .mn .inner{position:absolute;inset:0;padding:46px 34px;display:flex;flex-direction:column}
+  .mn .top{display:flex;justify-content:space-between;align-items:center}
+  .mn .who{font-size:12px;letter-spacing:4px;color:#86868b}
+  .mn .dot{width:8px;height:8px;background:#2b4acb;border-radius:50%;display:inline-block;margin-right:8px;vertical-align:1px}
+  .mn .plus{color:#c7c7cc;font-size:18px;font-weight:200}
+  .mn .big{margin-top:104px;font-weight:200;font-size:104px;line-height:1;letter-spacing:-3px;font-variant-numeric:tabular-nums}
+  .mn .big i{font-style:normal;color:#2b4acb}
+  .mn .year{margin-top:12px;font-size:14px;letter-spacing:12px;color:#86868b}
+  .mn .line{width:56px;height:2px;background:#2b4acb;margin:36px 0 20px}
+  .mn h3{font-size:19px;font-weight:500;letter-spacing:5px}
+  .mn .sub{margin-top:10px;font-size:12px;letter-spacing:2px;color:#86868b;line-height:1.9}
+  .mn .actions{position:absolute;left:34px;right:34px;bottom:44px;display:flex;align-items:center;gap:18px}
+  .mn .btn-dark{background:#1d1d1f;color:#fff;padding:13px 30px;font-size:13px;letter-spacing:3px;border-radius:2px}
+  .mn .ghost{color:#1d1d1f;font-size:13px;letter-spacing:2px;text-decoration:underline;text-underline-offset:6px;text-decoration-color:#2b4acb}
+
+  /* ============ 04 复古法式优雅 ============ */
+  .fr{background:#f5efe2;color:#2f4a3c}
+  .fr::before{content:'';position:absolute;inset:12px;border:1px solid #c2a35d;border-radius:4px}
+  .fr::after{content:'';position:absolute;inset:20px;border:1px solid rgba(47,74,60,.35);border-radius:2px}
+  .fr .corner{position:absolute;color:#c2a35d;font-size:13px;line-height:1;opacity:.9}
+  .fr .c-tl{left:26px;top:26px}
+  .fr .c-tr{right:26px;top:26px}
+  .fr .c-bl{left:26px;bottom:26px}
+  .fr .c-br{right:26px;bottom:26px}
+  .fr .inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;padding-top:86px}
+  .fr .orno{display:flex;align-items:center;gap:12px;color:#c2a35d;font-size:13px;letter-spacing:2px}
+  .fr .orno::before,.fr .orno::after{content:'';width:54px;height:1px;background:#c2a35d}
+  .fr .mono{width:92px;height:92px;border:1px solid #c2a35d;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:30px 0;font-family:'Playfair Display',serif;font-style:italic;font-size:26px;color:#c2a35d}
+  .fr h3{font-size:30px;letter-spacing:10px;font-weight:600;color:#2f4a3c}
+  .fr .names{margin-top:16px;font-size:20px;letter-spacing:6px}
+  .fr .en{font-family:'Playfair Display',serif;font-style:italic;color:#a08850;font-size:15px;margin-top:9px;letter-spacing:2px}
+  .fr .date{margin-top:24px;display:flex;align-items:center;gap:12px;color:#2f4a3c;font-size:14px;letter-spacing:3px}
+  .fr .date::before,.fr .date::after{content:'';width:5px;height:5px;background:#c2a35d;transform:rotate(45deg)}
+  .fr .btn{position:absolute;bottom:64px;left:50%;transform:translateX(-50%);background:#2f4a3c;color:#e6cf9a;border-radius:999px;padding:11px 34px;font-size:13px;letter-spacing:4px}
+  .fr .fall{position:absolute;color:#c2a35d;font-size:12px;opacity:.55}
+  .fr .fa1{left:56px;top:150px;transform:rotate(-18deg)}
+  .fr .fa2{right:62px;top:210px;transform:rotate(22deg)}
+  .fr .fa3{left:80px;bottom:170px;transform:rotate(14deg);opacity:.4}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>婚礼请柬 · 风格样图</h1>
+    <p>每张为封面示意 · 选定后做成完整版</p>
+  </header>
+
+  <!-- 01 新中式雅致 -->
+  <div class="block">
+    <div class="label"><b>01</b>新中式雅致<span>宣纸白 · 朱砂红 · 描金 · 水墨</span></div>
+    <div class="mock cn">
+      <div class="inner">
+        <div class="cloud">
+          <svg width="130" height="16" viewBox="0 0 130 16"><path d="M2 12 Q10 2 18 10 T34 10 T50 10 T66 10 T82 10 T98 10 T114 10 T126 10" stroke="#b8963f" stroke-width="1.2" fill="none"/></svg>
+        </div>
+        <div class="seal">囍</div>
+        <div class="names">
+          <span class="vname">李明</span>
+          <span class="sep">❋</span>
+          <span class="vname">王芳</span>
+        </div>
+        <div class="date">2026.10.01 · 星期四</div>
+        <div class="tip">敬备喜宴 · 恭候光临</div>
+      </div>
+      <div class="chips">
+        <div class="chip"><b>45</b><span>天</span></div>
+        <div class="chip"><b>08</b><span>时</span></div>
+        <div class="chip"><b>26</b><span>分</span></div>
+      </div>
+      <div class="mount">
+        <svg viewBox="0 0 390 130" preserveAspectRatio="none" style="width:100%;height:130px;display:block">
+          <path d="M0 130 L70 60 L120 100 L185 30 L250 95 L310 50 L390 130 Z" fill="#3f4a5a" opacity=".10"/>
+          <path d="M0 130 L55 95 L135 118 L215 70 L280 112 L345 85 L390 130 Z" fill="#3f4a5a" opacity=".16"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 水彩花卉浪漫 -->
+  <div class="block">
+    <div class="label"><b>02</b>水彩花卉浪漫<span>云朵白 · 蔷薇粉 · 叶绿 · 手绘</span></div>
+    <div class="mock fl">
+      <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div>
+      <div class="flower f1"><svg width="56" height="56" viewBox="0 0 56 56"><g opacity=".85"><ellipse cx="28" cy="12" rx="8" ry="12" fill="#eeaec0"/><ellipse cx="28" cy="44" rx="8" ry="12" fill="#eeaec0"/><ellipse cx="12" cy="28" rx="12" ry="8" fill="#f3c1cf"/><ellipse cx="44" cy="28" rx="12" ry="8" fill="#f3c1cf"/><ellipse cx="17" cy="17" rx="9" ry="11" transform="rotate(45 17 17)" fill="#eeaec0"/><ellipse cx="39" cy="39" rx="9" ry="11" transform="rotate(45 39 39)" fill="#eeaec0"/><ellipse cx="39" cy="17" rx="9" ry="11" transform="rotate(-45 39 17)" fill="#f3c1cf"/><ellipse cx="17" cy="39" rx="9" ry="11" transform="rotate(-45 17 39)" fill="#f3c1cf"/><circle cx="28" cy="28" r="6" fill="#d9a441"/></g></svg></div>
+      <div class="flower f2"><svg width="56" height="56" viewBox="0 0 56 56"><g opacity=".85"><ellipse cx="28" cy="12" rx="8" ry="12" fill="#eeaec0"/><ellipse cx="28" cy="44" rx="8" ry="12" fill="#eeaec0"/><ellipse cx="12" cy="28" rx="12" ry="8" fill="#f3c1cf"/><ellipse cx="44" cy="28" rx="12" ry="8" fill="#f3c1cf"/><ellipse cx="17" cy="17" rx="9" ry="11" transform="rotate(45 17 17)" fill="#eeaec0"/><ellipse cx="39" cy="39" rx="9" ry="11" transform="rotate(45 39 39)" fill="#eeaec0"/><ellipse cx="39" cy="17" rx="9" ry="11" transform="rotate(-45 39 17)" fill="#f3c1cf"/><ellipse cx="17" cy="39" rx="9" ry="11" transform="rotate(-45 17 39)" fill="#f3c1cf"/><circle cx="28" cy="28" r="6" fill="#d9a441"/></g></svg></div>
+      <div class="flower f3"><svg width="56" height="56" viewBox="0 0 56 56"><g opacity=".85"><ellipse cx="28" cy="12" rx="8" ry="12" fill="#eeaec0"/><ellipse cx="28" cy="44" rx="8" ry="12" fill="#eeaec0"/><ellipse cx="12" cy="28" rx="12" ry="8" fill="#f3c1cf"/><ellipse cx="44" cy="28" rx="12" ry="8" fill="#f3c1cf"/><ellipse cx="17" cy="17" rx="9" ry="11" transform="rotate(45 17 17)" fill="#eeaec0"/><ellipse cx="39" cy="39" rx="9" ry="11" transform="rotate(45 39 39)" fill="#eeaec0"/><ellipse cx="39" cy="17" rx="9" ry="11" transform="rotate(-45 39 17)" fill="#f3c1cf"/><ellipse cx="17" cy="39" rx="9" ry="11" transform="rotate(-45 17 39)" fill="#f3c1cf"/><circle cx="28" cy="28" r="6" fill="#d9a441"/></g></svg></div>
+      <div class="flower f4"><svg width="56" height="56" viewBox="0 0 56 56"><g opacity=".85"><ellipse cx="28" cy="12" rx="8" ry="12" fill="#eeaec0"/><ellipse cx="28" cy="44" rx="8" ry="12" fill="#eeaec0"/><ellipse cx="12" cy="28" rx="12" ry="8" fill="#f3c1cf"/><ellipse cx="44" cy="28" rx="12" ry="8" fill="#f3c1cf"/><ellipse cx="17" cy="17" rx="9" ry="11" transform="rotate(45 17 17)" fill="#eeaec0"/><ellipse cx="39" cy="39" rx="9" ry="11" transform="rotate(45 39 39)" fill="#eeaec0"/><ellipse cx="39" cy="17" rx="9" ry="11" transform="rotate(-45 39 17)" fill="#f3c1cf"/><ellipse cx="17" cy="39" rx="9" ry="11" transform="rotate(-45 17 39)" fill="#f3c1cf"/><circle cx="28" cy="28" r="6" fill="#d9a441"/></g></svg></div>
+      <span class="petal p1"></span><span class="petal p2"></span>
+      <div class="inner">
+        <div class="eyebrow">WE ARE GETTING MARRIED</div>
+        <h3>我们结婚啦</h3>
+        <div class="names">李明<em>♥</em>王芳</div>
+        <div class="en">Li Ming &amp; Wang Fang</div>
+        <div class="pill">2026.10.01 · 星期四</div>
+      </div>
+      <div class="card">
+        <h4>婚礼时间</h4>
+        <p>2026年10月1日 上午 11:18</p>
+        <span class="btn">欣然出席</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 简约现代 -->
+  <div class="block">
+    <div class="label"><b>03</b>简约现代<span>纯白 · 炭黑 · 克莱因蓝 · 大留白</span></div>
+    <div class="mock mn">
+      <div class="inner">
+        <div class="top">
+          <span class="who"><span class="dot"></span>李明 &amp; 王芳</span>
+          <span class="plus">＋</span>
+        </div>
+        <div class="big">10<i>.</i>01</div>
+        <div class="year">2 0 2 6</div>
+        <div class="line"></div>
+        <h3>我们要办婚礼了</h3>
+        <p class="sub">诚邀你来见证这个时刻<br>幸福大酒店 · 上午 11:18</p>
+        <div class="actions">
+          <span class="btn-dark">立即预约</span>
+          <span class="ghost">一键导航</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 复古法式优雅 -->
+  <div class="block">
+    <div class="label"><b>04</b>复古法式优雅<span>奶油 · 墨绿 · 烫金 · 古典纹样</span></div>
+    <div class="mock fr">
+      <span class="corner c-tl">❦</span><span class="corner c-tr">❦</span>
+      <span class="corner c-bl">❦</span><span class="corner c-br">❦</span>
+      <span class="fall fa1">❦</span><span class="fall fa2">❦</span><span class="fall fa3">❦</span>
+      <div class="inner">
+        <div class="orno">敬备喜宴</div>
+        <div class="mono">M · W</div>
+        <h3>我们结婚啦</h3>
+        <div class="names">李明 &amp; 王芳</div>
+        <div class="en">Li &amp; Wang</div>
+        <div class="date">2026.10.01 · 星期四</div>
+      </div>
+      <div class="btn">欣然出席</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
