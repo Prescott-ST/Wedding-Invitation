@@ -60,24 +60,57 @@ def get_body(msg):
     return plain or re.sub(r'<[^>]+>', ' ', html)
 
 
-mail = imaplib.IMAP4_SSL(HOST, 993)
-mail.login(USER, CODE)
-mail.select('INBOX', readonly=True)
+def connect():
+    m = imaplib.IMAP4_SSL(HOST, 993)
+    m.login(USER, CODE)
+    m.select('INBOX', readonly=True)
+    return m
 
-# QQ 邮箱的 UTF-8 主题搜索不可靠（会返回无关邮件），
-# 改为：先按日期缩小范围（ASCII 条件可靠），再逐封核对主题头
+
+def scan_subject_uids(mail):
+    """QQ 的 UTF-8 主题搜索不可靠，改为：日期过滤 + 分批拉取主题头核对"""
+    typ, data = mail.uid('SEARCH', None, '(SINCE 01-Aug-2026)')
+    cands = data[0].split() if data and data[0] else []
+    nums = sorted(int(u) for u in cands)
+    print('candidates since 2026-08-01: %d' % len(nums))
+    uids = []
+    for i in range(0, len(nums), 100):
+        chunk = nums[i:i + 100]
+        rng = '%d:%d' % (chunk[0], chunk[-1])
+        typ, data = mail.uid('FETCH', rng, '(BODY.PEEK[HEADER.FIELDS (SUBJECT)])')
+        if typ != 'OK' or not data:
+            continue
+        for item in data:
+            if not isinstance(item, tuple) or len(item) < 2:
+                continue
+            meta = item[0] if isinstance(item[0], bytes) else b''
+            payload = item[1] if isinstance(item[1], bytes) else b''
+            mu = re.search(rb'UID (\d+)', meta)
+            if not mu:
+                continue
+            msg = email.message_from_bytes(payload)
+            if '婚礼回执' in decode_subject(msg):
+                uids.append(mu.group(1))
+    print('subject matches: %d' % len(uids))
+    return uids
+
+
+mail = None
 uids = []
-typ, data = mail.uid('SEARCH', None, '(SINCE 01-Aug-2026)')
-candidates = data[0].split() if data and data[0] else []
-print('candidates since 2026-08-01: %d' % len(candidates))
-for uid in candidates:
-    typ, hd = mail.uid('FETCH', uid, '(BODY.PEEK[HEADER.FIELDS (SUBJECT)])')
-    if not hd or not hd[0] or not isinstance(hd[0], tuple):
-        continue
-    msg = email.message_from_bytes(hd[0][1])
-    if '婚礼回执' in decode_subject(msg):
-        uids.append(uid)
-print('subject matches: %d' % len(uids))
+for attempt in range(1, 4):
+    try:
+        if mail is not None:
+            try:
+                mail.logout()
+            except Exception:
+                pass
+        mail = connect()
+        uids = scan_subject_uids(mail)
+        break
+    except (imaplib.IMAP4.abort, imaplib.IMAP4.error, OSError) as exc:
+        print('连接中断（第 %d 次）：%s' % (attempt, exc))
+        if attempt == 3:
+            raise
 
 rows = []
 for uid in uids:
