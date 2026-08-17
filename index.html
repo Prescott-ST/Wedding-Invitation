@@ -632,7 +632,12 @@
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({ _subject: '婚礼回执 · ' + name, 姓名: name, 出席人数: attending ? count : 0, 是否出席: attending ? '出席' : '婉拒' })
-    }).then(function(r){ return r.ok ? r.json() : Promise.reject(r); })
+    }).then(function(r){
+      return r.json().then(function(j){
+        if (r.ok && (j.success === 'true' || j.success === true)) return j;
+        return Promise.reject(j);
+      });
+    })
       .then(function(){
         $('#rsvp-form').innerHTML =
           '<div class="rsvp-done"><span class="orn">❦</span>' +
