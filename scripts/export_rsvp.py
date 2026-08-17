@@ -21,12 +21,22 @@ if not USER or not CODE:
     sys.exit(1)
 
 
+def safe_decode(payload, enc):
+    for e in (enc, 'utf-8', 'gb18030'):
+        if not e or not isinstance(e, str):
+            continue
+        try:
+            return payload.decode(e, 'ignore')
+        except (LookupError, UnicodeDecodeError):
+            continue
+    return payload.decode('utf-8', 'ignore')
+
+
 def decode_subject(msg):
-    parts = decode_header(msg.get('Subject', ''))
     out = ''
-    for payload, enc in parts:
+    for payload, enc in decode_header(msg.get('Subject', '')):
         if isinstance(payload, bytes):
-            out += payload.decode(enc or 'utf-8', 'ignore')
+            out += safe_decode(payload, enc)
         else:
             out += payload
     return out
@@ -42,26 +52,40 @@ def get_body(msg):
             continue
         payload = part.get_payload(decode=True) or b''
         charset = part.get_content_charset() or 'utf-8'
+        text = safe_decode(payload, charset)
         if ct == 'text/plain' and not plain:
-            plain = payload.decode(charset, 'ignore')
+            plain = text
         elif ct == 'text/html' and not html:
-            html = payload.decode(charset, 'ignore')
+            html = text
     return plain or re.sub(r'<[^>]+>', ' ', html)
 
 
-rows = []
 mail = imaplib.IMAP4_SSL(HOST, 993)
 mail.login(USER, CODE)
 mail.select('INBOX', readonly=True)
-typ, data = mail.search(None, 'ALL')
-for uid in data[0].split():
-    typ, msg_data = mail.fetch(uid, '(RFC822)')
-    if not msg_data or not msg_data[0]:
+
+# QQ 邮箱的 UTF-8 主题搜索不可靠（会返回无关邮件），
+# 改为：先按日期缩小范围（ASCII 条件可靠），再逐封核对主题头
+uids = []
+typ, data = mail.uid('SEARCH', None, '(SINCE 01-Aug-2026)')
+candidates = data[0].split() if data and data[0] else []
+print('candidates since 2026-08-01: %d' % len(candidates))
+for uid in candidates:
+    typ, hd = mail.uid('FETCH', uid, '(BODY.PEEK[HEADER.FIELDS (SUBJECT)])')
+    if not hd or not hd[0] or not isinstance(hd[0], tuple):
         continue
-    msg = email.message_from_bytes(msg_data[0][1])
+    msg = email.message_from_bytes(hd[0][1])
+    if '婚礼回执' in decode_subject(msg):
+        uids.append(uid)
+print('subject matches: %d' % len(uids))
+
+rows = []
+for uid in uids:
+    typ, md = mail.uid('FETCH', uid, '(RFC822)')
+    if not md or not md[0] or not isinstance(md[0], tuple):
+        continue
+    msg = email.message_from_bytes(md[0][1])
     subject = decode_subject(msg)
-    if '婚礼回执' not in subject:
-        continue
     text = subject + '\n' + get_body(msg)
     m_name = re.search(r'姓名\s*[:：]?\s*([^\s<，,、；;]+)', text)
     if not m_name:
