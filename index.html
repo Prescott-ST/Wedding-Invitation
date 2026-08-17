@@ -12,7 +12,7 @@
   3. 婚礼地点：替换「幸福大酒店 / 三楼宴会厅 / 示例市幸福路88号」，以及「一键导航」链接里的 keywords
   4. 新人照片：把 class="photo" 的占位块换成 <img src="照片.jpg">
   5. 背景音乐：给 <audio id="bgm"> 加上 src="你的音乐.mp3"
-  6. 联系电话：修改两个 tel: 链接
+  6. 联系方式：应新人要求未展示电话；如需恢复，在地点卡片与回执区加回 tel: 链接即可
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -424,7 +424,6 @@
       <p>上海市虹口区黄浦路 199 号</p>
       <div class="btn-row">
         <a class="btn btn-green" href="https://uri.amap.com/search?keywords=上海外滩茂悦大酒店" target="_blank" rel="noopener">一键导航</a>
-        <a class="btn btn-line" href="tel:13800000000">电话咨询</a>
       </div>
     </div>
   </section>
@@ -484,10 +483,6 @@
       <button type="submit" class="btn btn-green btn-submit">提交回执</button>
       <p class="rsvp-note">回执仅新人可见 · 出席统计会在婚礼前整理</p>
     </form>
-    <div class="btn-row reveal">
-      <a class="btn btn-line" href="tel:13800000000">☎ 新郎 138-0000-0000</a>
-      <a class="btn btn-line" href="tel:13900000000">☎ 新娘 139-0000-0000</a>
-    </div>
   </section>
 
   <footer>
@@ -630,7 +625,7 @@
     var name = $('#guest-name').value.trim();
     if (!name) { toast('请先填写您的姓名'); $('#guest-name').focus(); return; }
     if (!RSVP.endpoint && RSVP.externalUrl) { window.location.href = RSVP.externalUrl; return; }
-    if (!RSVP.endpoint) { toast('回执通道配置中，请稍后再试或电话联系新人'); return; }
+    if (!RSVP.endpoint) { toast('回执通道配置中，请稍后再试'); return; }
     var btn = this.querySelector('.btn-submit');
     btn.disabled = true; btn.textContent = '提交中…';
     fetch(RSVP.endpoint, {
@@ -647,7 +642,7 @@
       })
       .catch(function(){
         btn.disabled = false; btn.textContent = '重新提交';
-        toast('提交失败，请稍后再试或电话联系新人');
+        toast('提交失败，请稍后再试');
       });
   });
 })();
