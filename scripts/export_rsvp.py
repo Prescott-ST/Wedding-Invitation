@@ -136,13 +136,22 @@ for uid in uids:
     })
 mail.logout()
 
-# 按邮件 Message-ID 去重，按提交时间排序
-seen, uniq = set(), []
+# 先按邮件 Message-ID 去重（防同一封邮件重复计数），
+# 再按姓名去重：时间递增遍历、后写覆盖，同一宾客仅保留最新一次提交
+by_msg, ordered = set(), []
 for r in sorted(rows, key=lambda x: x['time']):
-    if r['id'] and r['id'] in seen:
+    if r['id'] and r['id'] in by_msg:
         continue
-    seen.add(r['id'])
-    uniq.append(r)
+    by_msg.add(r['id'])
+    ordered.append(r)
+
+latest = {}
+for r in ordered:
+    latest[r['name']] = r
+uniq = sorted(latest.values(), key=lambda x: x['time'])
+dropped = len(ordered) - len(uniq)
+if dropped:
+    print('有 %d 条重复提交（同人多次），已仅保留最新记录' % dropped)
 
 wb = Workbook()
 ws = wb.active
