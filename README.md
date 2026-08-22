@@ -1,7 +1,7 @@
 # 婚礼电子请柬项目 · 申屠俊杰 & 熊婧言
 
-> 2026 年 9 月 12 日（星期六 · 农历丙午年八月初二）晚 19:00
-> 上海外滩茂悦大酒店 三楼琉璃厅（虹口区黄浦路 199 号）
+> 2026 年 10 月 6 日（星期二 · 农历丙午年八月廿六）晚 19:00
+> 扬州西园大酒店 三楼国际厅（邗江区丰乐上街 1 号）
 
 - **线上请柬**：<https://prescott-st.github.io/Wedding-Invitation/>
 - **本仓库**：<https://github.com/Prescott-ST/Wedding-Invitation>
@@ -15,6 +15,7 @@
 |---|---|
 | `index.html` | 请柬正式版，**全部内容、样式、交互都在这一个文件里** |
 | `风格样图.html` | 设计期的四款风格样图存档（在线：<https://prescott-st.github.io/Wedding-Invitation/风格样图.html>） |
+| `photos/` | 请柬用五张照片（网页压缩版，共约 590KB；原片在 `F:\婚礼影像\照片`） |
 | `嘉宾回执统计.xlsx` | 宾客回执汇总表（姓名 / 出席人数 / 提交时间 / 合计） |
 | `scripts/export_rsvp.py` | 从 QQ 邮箱拉取回执邮件 → 重新生成上面的 Excel；同一宾客多次提交**仅保留最新一笔**（按姓名判定） |
 | `.nojekyll` | 跳过 Jekyll，Pages 构建必需 |
@@ -47,18 +48,18 @@
 
 ## 四、关键配置信息
 
-- **倒计时目标**：`index.html` 脚本内 `target = new Date('2026-09-12T19:00:00+08:00')`
+- **倒计时目标**：`index.html` 脚本内 `target = new Date('2026-10-06T19:00:00+08:00')`
 - **回执接口**：`https://formsubmit.co/ajax/491042472@qq.com`（RSVP 配置区）
 - **GitHub Secrets**（仓库 Settings → Secrets → Actions）：`RSVP_EMAIL`、`RSVP_MAILCODE`（QQ 邮箱 IMAP 授权码）。授权码值不在本文件中；如失效，到 QQ 邮箱 → 设置 → 账户 → 重新生成并更新 Secret
 - **手动更新 Excel**：本机 Python 装好 `openpyxl` 后运行
   `set RSVP_EMAIL=... && set RSVP_MAILCODE=... && python scripts/export_rsvp.py`，再把生成的 `嘉宾回执统计.xlsx` 传回仓库
-- **一键导航**：高德 `keywords=上海外滩茂悦大酒店`
+- **一键导航**：高德 `keywords=扬州西园大酒店`
 
 ## 五、待办清单
 
 - [x] ~~FormSubmit 激活~~（2026-08-17 完成并联调验证：提交→邮箱→Excel→仓库全链路通过）
 - [x] ~~创建定时任务~~（2026-08-17 完成并首次运行成功，rsvp-bot 已自动提交）
-- [ ] 照片 3 张（合照 ×1 + 单人 ×2，替换 `index.html` 中 `class="photo"` 占位块）
+- [x] ~~照片 3 张~~（2026-08-22 完成：大图草坪撒花 + 红色电话亭 + 窗边逆光 + 楼梯暖光对视 + 黄昏江边相依，共 5 张已压缩入 `photos/`）
 - [ ] 背景音乐（可选，`<audio id="bgm">` 加 `src`）
 - [ ] 确认签到时间 18:30 是否准确
 - [ ]（可选）真实回执进来后，让助手过滤掉 Excel 中的「联调测试」行
