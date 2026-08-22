@@ -244,20 +244,20 @@
   .tl-time{font-weight:900;color:var(--green);font-size:16px;margin-right:10px;font-variant-numeric:tabular-nums}
   .tl-name{color:var(--text);font-size:15px}
 
-  /* ---------- 照片位（复古相框） ---------- */
-  .photos{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .photo{
-    aspect-ratio:3/4;border:1px solid var(--gold);border-radius:4px;
-    background:#fdfaf1;
-    box-shadow:inset 0 0 0 5px #fdfaf1,inset 0 0 0 6px rgba(194,163,93,.55);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
-    color:#b3a685;font-size:13px;letter-spacing:2px;
+  /* ---------- 散布照片（复古相框式） ---------- */
+  figure.ph{
+    margin:40px auto;max-width:390px;padding:7px;
+    background:#fdfaf1;border:1px solid var(--gold);border-radius:4px;
+    box-shadow:inset 0 0 0 5px #fdfaf1,inset 0 0 0 6px rgba(194,163,93,.55),
+               0 12px 28px rgba(47,74,60,.13);
   }
-  .photo.big{grid-column:1/-1;aspect-ratio:16/9}
-  .photo::before{content:'❦';font-size:20px;color:var(--gold)}
-  .photo.full{font-size:0}          /* 有真实照片时隐藏 ❦ 与占位文字 */
-  .photo.full::before{content:none}
-  .photo.full img{width:100%;height:100%;object-fit:cover;display:block}
+  .ph img{display:block;width:100%;border-radius:2px}
+  .ph.wide{max-width:760px}         /* 横幅照片带 */
+  .ph.mid{max-width:450px}          /* 略大的主照片 */
+  .ph small{                        /* 可选的照片题注 */
+    display:block;margin-top:9px;text-align:center;
+    font-size:12px;letter-spacing:4px;color:#b3a685;
+  }
 
   /* ---------- 回执表单 ---------- */
   #rsvp-form{max-width:300px;margin:0 auto;text-align:left}
@@ -359,6 +359,9 @@
     <div class="hint-box"><span class="chevron"></span></div>
   </section>
 
+  <!-- 照片 · 草坪撒花 -->
+  <figure class="ph wide reveal"><img src="photos/photo-hero.jpg" alt="新人草坪撒花合影" loading="lazy"></figure>
+
   <!-- 喜帖正文 -->
   <section>
     <div class="reveal">
@@ -387,20 +390,8 @@
     <p class="couple-en reveal">Shen Tu Jun Jie &nbsp;&amp;&nbsp; Xiong Jing Yan</p>
   </section>
 
-  <!-- 幸福瞬间（照片位） -->
-  <section>
-    <div class="reveal">
-      <h2 class="sec-title">幸福瞬间</h2>
-      <p class="sec-sub">Sweet Moments</p>
-    </div>
-    <div class="photos reveal">
-      <div class="photo big full"><img src="photos/photo-hero.jpg" alt="新人草坪撒花合影" loading="lazy"></div>
-      <div class="photo full"><img src="photos/photo-1.jpg" alt="红色电话亭复古合影" loading="lazy"></div>
-      <div class="photo full"><img src="photos/photo-2.jpg" alt="窗边逆光相拥" loading="lazy"></div>
-      <div class="photo full"><img src="photos/photo-3.jpg" alt="楼梯间暖光对视" loading="lazy"></div>
-      <div class="photo full"><img src="photos/photo-4.jpg" alt="黄昏江边相依" loading="lazy"></div>
-    </div>
-  </section>
+  <!-- 照片 · 红色电话亭 -->
+  <figure class="ph reveal"><img src="photos/photo-1.jpg" alt="红色电话亭复古合影" loading="lazy"></figure>
 
   <!-- 时间 · 地点 -->
   <section>
@@ -424,6 +415,9 @@
     </div>
   </section>
 
+  <!-- 照片 · 窗边逆光 -->
+  <figure class="ph reveal"><img src="photos/photo-2.jpg" alt="窗边逆光相拥" loading="lazy"></figure>
+
   <!-- 婚礼流程 -->
   <section>
     <div class="reveal">
@@ -435,6 +429,9 @@
       <div class="tl-item"><span class="tl-time">19:00</span><span class="tl-name">婚宴开席 · 敬备喜宴</span></div>
     </div>
   </section>
+
+  <!-- 照片 · 楼梯暖光 -->
+  <figure class="ph reveal"><img src="photos/photo-3.jpg" alt="楼梯间暖光对视" loading="lazy"></figure>
 
   <!-- 倒计时 -->
   <section>
@@ -450,6 +447,9 @@
       <div class="cd-box"><b id="cd-s">--</b><span>秒</span></div>
     </div>
   </section>
+
+  <!-- 照片 · 黄昏江边 -->
+  <figure class="ph mid reveal"><img src="photos/photo-4.jpg" alt="黄昏江边相依" loading="lazy"></figure>
 
   <!-- 回复邀请 -->
   <section>
